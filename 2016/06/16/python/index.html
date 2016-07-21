@@ -1,0 +1,320 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Python 艺术 | 思卓</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="bobird">
+    
+    <meta name="description" content="获取Mac地址#####python获取mac地址有多种方式，如下：1 借助uuid模块实现，改方法适用性更强一些def get_mac_address():    import uuid    node=uuid.getnode()    mac=uuid.UUID(int=node).hex[-">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="思卓">思卓</a></h1>
+				<h2 class="blog-motto">It&#39;s only too late if you decide it is. Get busy living. or get busy dying!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/16/python/" title="Python 艺术" itemprop="url">Python 艺术</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="bobird">bobird</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-06-16T01:18:35.076Z" itemprop="datePublished">2016-06-16</time>
+    Updated:<time datetime="2016-06-18T08:18:57.710Z" itemprop="dateModified">2016-06-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取Mac地址"><span class="toc-number">1.</span> <span class="toc-text">获取Mac地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bat调用python的合理方式"><span class="toc-number">2.</span> <span class="toc-text">bat调用python的合理方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python-命令行参数"><span class="toc-number">3.</span> <span class="toc-text">python 命令行参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#python中使用命令行选项："><span class="toc-number">3.1.</span> <span class="toc-text">python中使用命令行选项：</span></a></li></ol></li></ol>
+		</div>
+		
+		<h3 id="获取Mac地址"><a href="#获取Mac地址" class="headerlink" title="获取Mac地址"></a>获取Mac地址</h3><p>#####python获取mac地址有多种方式，如下：<br>1 借助uuid模块实现，改方法适用性更强一些<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_mac_address</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">import</span> uuid</span><br><span class="line">    node=uuid.getnode()</span><br><span class="line">    mac=uuid.UUID(int=node).hex[<span class="number">-12</span>:]</span><br><span class="line">    <span class="keyword">return</span> mac</span><br></pre></td></tr></table></figure></p>
+<p>2 按照操作系统平台,通过popen的数据还受到系统语言环境的影响，如果是中文环境下’ipconfig/all’的结果就包含有中文，要查找mac地址的话，就需要查找’物理地址’<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_mac_address</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">import</span> sys</span><br><span class="line">    <span class="keyword">import</span> os</span><br><span class="line">    mac=<span class="keyword">None</span></span><br><span class="line">    <span class="keyword">if</span> sys.paltform=<span class="string">"win32"</span>:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> os.popen(<span class="string">'ipconfig/all'</span>):</span><br><span class="line">            <span class="keyword">print</span> line</span><br><span class="line">            <span class="keyword">if</span> line.lstrip().startwith(<span class="string">'Physical Address'</span>)：<span class="comment">#物理地址</span></span><br><span class="line">                mac=line.split(<span class="string">':'</span>)[<span class="number">1</span>].strip().replace(<span class="string">'-'</span>,<span class="string">":"</span>)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> os.popen(<span class="string">'/sbin/ifconfig'</span>):</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'Ether'</span> <span class="keyword">in</span> line:</span><br><span class="line">                mac=line.split()[<span class="number">4</span>]</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> mac</span><br></pre></td></tr></table></figure></p>
+<h3 id="bat调用python的合理方式"><a href="#bat调用python的合理方式" class="headerlink" title="bat调用python的合理方式"></a>bat调用python的合理方式</h3><p>“pythonw.exe”和”python.exe”的区别：<br>    1 前者执行时不会出现DOS窗口<br>    2 前者执行时所有stdin和stdout都无效<br>    3 前者执行时原有的stdin只会得到EOF<br>所以如果bat调用python想不出现DOS窗口，需要调用”pythonw.exe”<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@echo off </span></span><br><span class="line">cd %python_home%</span><br><span class="line">start pythonw test.py</span><br><span class="line">exit</span><br></pre></td></tr></table></figure></p>
+<h3 id="python-命令行参数"><a href="#python-命令行参数" class="headerlink" title="python 命令行参数"></a>python 命令行参数</h3><p>python中，参数设置，首先需要导入sys。argc，argv对应情况如下：<br>如存在文件名称为“test.py”,在命令行输入:python test.py hello world,获取参数情况如下：<br>sys.argv[0] ——脚本名称（如test.py)<br>sys.argv[1] ——hello<br>sys.argv[2] __world</p>
+<h4 id="python中使用命令行选项："><a href="#python中使用命令行选项：" class="headerlink" title="python中使用命令行选项："></a>python中使用命令行选项：</h4><p>例如我们需要一个convert.py，它的作用是处理一个文件，并将结果输出到另一个文件中<br>。要求该脚本满足一下条件：</p>
+<p>1 通过-i-o选项来区别参数是输入文件还是输出文件<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python convert.py -i inputifle -o outputifle</span><br></pre></td></tr></table></figure></p>
+<p>2 当不知道convert.py需要哪些参数时，用-h打印出帮助信息。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python convert.py -h</span><br></pre></td></tr></table></figure></p>
+<p>getop函数原形：<br>getopt.getopt(args,options[,long_options])<br>convert.py<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys.getopt</span><br><span class="line">opts,args=getopt.getopt(sys.argv[<span class="number">1</span>:],<span class="string">'hi:o:'</span>)</span><br><span class="line">input_file=<span class="string">""</span></span><br><span class="line">output_file=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> op,value <span class="keyword">in</span> opts:</span><br><span class="line">    <span class="keyword">if</span> op==<span class="string">"-i"</span>:</span><br><span class="line">        input_file=value</span><br><span class="line">    <span class="keyword">elif</span> op==<span class="string">"-o"</span>:</span><br><span class="line">        output_file=value</span><br><span class="line">    <span class="keyword">elif</span> op==<span class="string">"-h"</span>:</span><br><span class="line">        usage()</span><br><span class="line">        sys.exit()</span><br></pre></td></tr></table></figure></p>
+<p>代码解释：</p>
+<ol>
+<li>sys.argv[1:]为处理的参数列表，sys.argv[0]为脚本名，所以用sys.argv[1:]过滤脚本名。</li>
+<li>“hi:o:”:当一个选项只是表示开关状态时，即后面不带附加参数时，在分析串中写入选项字符。当选项后面是带一个附加参数时，在分析串写入选项字符同时后面加一个”:”号。所以”hi:o:”中表示”h”是一个开关选项；”i:”和”o:”则表示后面应该带一个参数。</li>
+<li>调用getopt函数。函数返回两个列表：opts和args。opts为分析出的格式信息。args为不属于格式信息的剩余的命令行参数。opts是一个两元组列表。每个元素为：（选项串，附加参数）。如果没有附加参数则为空串’’。</li>
+</ol>
+<p>getopt函数的第三个参数[,long_options]为可选的长选项参数，上面例子中的都为短选项(如-i -o)<br>长选项格式举例：<br>–version<br>–file=error.txt<br>让一个脚本同时支持短选项和长选项<br>getopt.getopt(sys.argv[1:],’hi:o:’,[“version”,”file=”])</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2016/06/16/python/" data-title="Python 艺术 | 思卓" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/06/16/python_func/" title="python 函数">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  python 函数</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/14/hello-world/"  title="Hello World">
+ <strong>NEXT:</strong><br/> 
+ <span>Hello World
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取Mac地址"><span class="toc-number">1.</span> <span class="toc-text">获取Mac地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bat调用python的合理方式"><span class="toc-number">2.</span> <span class="toc-text">bat调用python的合理方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python-命令行参数"><span class="toc-number">3.</span> <span class="toc-text">python 命令行参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#python中使用命令行选项："><span class="toc-number">3.1.</span> <span class="toc-text">python中使用命令行选项：</span></a></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 追求卓越，成功就会不经意的追上你！ <br/>
+			As you think, so shall you become.</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/hbobird" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
+		
+		<a href="http://yoursite.com" target="_blank" title="bobird">bobird</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"null"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>

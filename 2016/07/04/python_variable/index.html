@@ -1,0 +1,328 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>python 风格 | 思卓</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="bobird">
+    
+    <meta name="description" content="变量约定_foo 单下划线，代表不能直接访问的类属性，需要通过类提供的接口进行访问，不能用from xxx import导入。foo 双下划线代表类私有成员。
+foo 前后双下划线的，代表python的特殊方法，如init__()
+编码风格
+使用4个空格来缩进，不要使用tab，更不能混用。
+函数与函">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="思卓">思卓</a></h1>
+				<h2 class="blog-motto">It&#39;s only too late if you decide it is. Get busy living. or get busy dying!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/04/python_variable/" title="python 风格" itemprop="url">python 风格</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="bobird">bobird</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-07-04T00:01:15.143Z" itemprop="datePublished">2016-07-04</time>
+    Updated:<time datetime="2016-07-04T00:23:12.390Z" itemprop="dateModified">2016-07-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量约定"><span class="toc-number">1.</span> <span class="toc-text">变量约定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编码风格"><span class="toc-number">2.</span> <span class="toc-text">编码风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命名约定"><span class="toc-number">3.</span> <span class="toc-text">命名约定</span></a></li></ol>
+		</div>
+		
+		<h3 id="变量约定"><a href="#变量约定" class="headerlink" title="变量约定"></a>变量约定</h3><p>_foo 单下划线，代表不能直接访问的类属性，需要通过类提供的接口进行访问，不能用<code>from xxx import</code>导入。<br><strong>foo 双下划线代表类私有成员。
+</strong>foo<strong> 前后双下划线的，代表python的特殊方法，如</strong>init__()</p>
+<h3 id="编码风格"><a href="#编码风格" class="headerlink" title="编码风格"></a>编码风格</h3><ol>
+<li>使用4个空格来缩进，不要使用tab，更不能混用。</li>
+<li>函数与函数间隔一行</li>
+<li>类与类间隔两行</li>
+<li>少使用inline comments(行内注释)</li>
+<li>尽量使用block comments（用#开头的多行函数注释），保持与目标函数同缩进</li>
+<li>docstring，开头一行写返回值，接下来一行写函数功能描述。</li>
+</ol>
+<h3 id="命名约定"><a href="#命名约定" class="headerlink" title="命名约定"></a>命名约定</h3><ol>
+<li>尽量少用’i’,’I’,’O’单字母作为命名</li>
+<li>包和模块应该用短且全小写字符：thismoduleisnew</li>
+<li>class name则建议用CapWords（首字母大写）的命名方式，NewClassName</li>
+<li>全局变量尽量只是设计用于模块内使用，并且可以用import *时，包内的<strong>all</strong>机制来除去全局变量。</li>
+<li>函数名(function name)尽量都用小写且单词间以_（下划线）连接，另外，大小混合的mixedCase值允许用于传统类中。</li>
+<li>常量建议全大写，单词间以’_’间隔。：THIS_IS_CONSTANT_VAR</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python     #在文件头部 ( 第一行 ) 加上   设置 Python 解释器  </span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-     #在文件头部 ( 第二行 ) 加上   在编辑器中设置以 UTF-8 默认编码保存文件  </span></span><br><span class="line"><span class="comment"># Copyright (c) 2011 - chinakr &lt;chinakr@gmail.com&gt;    #版权信息放在文件头部,文件编码之后  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># docstring 是 Python 特有的注释风格,它是模 块、类或函数的第一个语句,可以通过 __doc__ 方法访问   </span></span><br><span class="line"><span class="comment"># 用英语撰写注释,短注释可以忽略末尾的句号 (.)  </span></span><br><span class="line"><span class="comment"># docstring 为每个模块、类或函数撰写 docstring   推荐使用三个双引号 (”””) 来定义 docsting , 不推荐使用三个单引号 (''')  </span></span><br><span class="line"><span class="comment"># 模块的 docsting 放在文件头部,版权信息之后  </span></span><br><span class="line">  </span><br><span class="line">”””This <span class="keyword">is</span> a one line docstring.”””  </span><br><span class="line">”””The title of a multiline docstring:  </span><br><span class="line">After title <span class="keyword">is</span> the content.You can write it <span class="keyword">as</span> long <span class="keyword">as</span> needed.  </span><br><span class="line">”””  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 把 import 语句放在文件头部,在模块 docstring 之后,在模块全局变量或全局常量之前  </span></span><br><span class="line"><span class="comment"># 按照从一般到特殊的原则分组 import 语句,先 import 标准库,然后 import 第三方库,最后 import 程序中的自定义库  </span></span><br><span class="line"><span class="comment"># 在不同分组的 import 语句之间加空行   </span></span><br><span class="line"><span class="comment"># 每个 import 语句只导入一个模块  </span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">import</span> sys   </span><br><span class="line"><span class="keyword">import</span> time  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">from</span> PyQt.QtCore <span class="keyword">import</span> SIGNAL, QTimer  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#  在终端中使用中文字符  在文件头部加上  </span></span><br><span class="line"><span class="comment"># import sys   </span></span><br><span class="line"><span class="comment"># reload(sys)   </span></span><br><span class="line"><span class="comment"># sys.setdefaultencoding('utf-8')  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 一行代码的长度不能超过 79 个字符  </span></span><br><span class="line"><span class="comment"># 在括号 ( 圆括号、方括号、花括号 ) 内部折行是 推荐使用的方式  </span></span><br><span class="line">fooBar(self, width, height, color=<span class="string">'balck'</span>, design=<span class="keyword">None</span>, x=<span class="string">'foo'</span>,  </span><br><span class="line">       emphasis=<span class="keyword">None</span>, highlight=<span class="number">0</span>)  </span><br><span class="line"><span class="comment"># 需要时可以在表达式两侧加上额外的括号  </span></span><br><span class="line"><span class="keyword">if</span> (width == <span class="number">0</span> <span class="keyword">and</span> height == <span class="number">0</span> <span class="keyword">and</span>   </span><br><span class="line">    color == <span class="string">'red'</span> <span class="keyword">and</span> empasis == <span class="string">'strong'</span>):  </span><br><span class="line"><span class="comment"># 括号内的长字符串可以直接写成两个短字符串  </span></span><br><span class="line">x = (<span class="string">'This will build a very long long '</span>   </span><br><span class="line">     <span class="string">'long long long long long long string'</span>)  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 使用续行符号,折行的位置可以在逗号 (,) 后或 运算符前,折行后要多一个缩进  </span></span><br><span class="line"><span class="keyword">from</span> PyQt4.QtCore <span class="keyword">import</span> QTextCodec, SIGNAL, SLOT, \  </span><br><span class="line">    QLibraryInfo, QTimer  </span><br><span class="line">veryLongVariableA = veryLongVariableB \  </span><br><span class="line">     + verLongVariableC  </span><br><span class="line"><span class="comment"># 使用 4 个空格进行缩进 不要使用 Tab 或者混合使用空格和 Tab  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 适当的空行可以提高代码的可读性 加空行的原则:  </span></span><br><span class="line"><span class="comment">## 在不同分组的 import 语句之间加空行  </span></span><br><span class="line"><span class="comment">## 在顶层的类或函数定义之间加两个空行  </span></span><br><span class="line"><span class="comment">## 在类或函数定义之间加空行  </span></span><br><span class="line"><span class="comment">## 相关的函数定义可以放在一起,并使用两个空行来分 隔 ( 应谨慎地使用额外的空行 )  </span></span><br><span class="line"><span class="comment">## 在函数或方法内部可以加空行,也就是把相关的代码 紧凑地写在一起,形成逻辑段落,段落之间用空行分 隔 ( 应谨慎地使用额外的空行 )  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 加空格的情况:  </span></span><br><span class="line"><span class="comment">## 逗号 (,) 、冒号 (:) 后要加空格  </span></span><br><span class="line"><span class="comment">## 二元运算符前后要加空格,如赋值运算符 (=) 、比较 运算符 (==, &lt;, &gt;, !=, &lt;=, &gt;=, in, not in, is, is not) 和逻 辑运算符 (and, or, not)  </span></span><br><span class="line"><span class="comment">## 算数运算符前后要加空格  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 不加空格的情况:  </span></span><br><span class="line"><span class="comment">## 逗号 (,) 、冒号 (:) 前不加空格 参数列表、索引 (index) 或切片 (slice) 的前括号 ( 圆  </span></span><br><span class="line"><span class="comment">## 括号, 方括号)前不加空格 前括号 ( 圆括号、 方括号、花括号 ) 后不加空格,后  </span></span><br><span class="line"><span class="comment">## 括号前不加空格 一元运算符前后不加空格  </span></span><br><span class="line"><span class="comment">## 函数或方法定义或调用时参数列表中的等号 (=) 前后 不加空格  </span></span><br><span class="line"><span class="comment">## 冒号 (:) 在行尾时不加空格,如类定义、函数定义、 分支语句、循环语句  </span></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 谨慎地使用括号  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 不要在返回语句和条件语句中使用括号,除非是 为了换行  </span></span><br><span class="line"><span class="keyword">if</span> foo:   </span><br><span class="line">    bar()  </span><br><span class="line"><span class="keyword">return</span> foo  </span><br><span class="line"><span class="comment"># 可以在元组 (tuple) 两侧使用括号   </span></span><br><span class="line"><span class="keyword">for</span> (x, y) <span class="keyword">in</span> dict.items():  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 恰当的命名可以提高代码的可读性 命名时只使用 ASCII 字符,并尽量使用英文单词 命名规则  </span></span><br><span class="line"><span class="comment"># 类型    公共  内部  </span></span><br><span class="line"><span class="comment"># 包 lower_with_under      </span></span><br><span class="line"><span class="comment"># 模块    lower_with_under    _lower_with_under  </span></span><br><span class="line"><span class="comment"># 类 CapWords    _CapWords  </span></span><br><span class="line"><span class="comment"># 函数    capWords()  _capWords()  </span></span><br><span class="line"><span class="comment"># 全局常量 / 类常量    CAPS_WITH_UNDER     _CAPS_WITH_UNDER  </span></span><br><span class="line"><span class="comment"># 全局变量 / 类变量    capWords    _capWords  </span></span><br><span class="line"><span class="comment"># 方法    capWrods()  _capWords() ( 保护 ) __capWords() ( 私有 )  </span></span><br><span class="line"><span class="comment"># 函数参数 / 方法参数   capWords  </span></span><br><span class="line"><span class="comment"># 局部变量  capWrods  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 不要使用l(小写的L)、o(小写的O)和I(大写的 i) 作为单字符变量名,因为在某些字体下很难把 它们和数字1、0区分开  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">## 当需要使用 l( 小写的 L) 时可以使用 L 代替  </span></span><br><span class="line"><span class="comment">## 当需要使用保留关键字作为函数名时,可以在名 字后加一个下划线 (_) ,而不要破坏正常的拼写  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 模块的主要功能要放在 main() 函数中  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span>   </span><br><span class="line">    //do something  </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:   </span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2016/07/04/python_variable/" data-title="python 风格 | 思卓" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/07/04/python_path/" title="Python Path">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Python Path</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/07/03/wsgi/"  title="WSGI">
+ <strong>NEXT:</strong><br/> 
+ <span>WSGI
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量约定"><span class="toc-number">1.</span> <span class="toc-text">变量约定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编码风格"><span class="toc-number">2.</span> <span class="toc-text">编码风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命名约定"><span class="toc-number">3.</span> <span class="toc-text">命名约定</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 追求卓越，成功就会不经意的追上你！ <br/>
+			As you think, so shall you become.</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/hbobird" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
+		
+		<a href="http://yoursite.com" target="_blank" title="bobird">bobird</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"null"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>

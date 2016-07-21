@@ -1,0 +1,313 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>css 伪类和伪元素 | 思卓</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="bobird">
+    
+    <meta name="description" content="Css的元素选择器，除了根据id(#),class(.),属性([])选取元素外，还可以根据元素的特殊状态来选取元素，它们就是伪类和伪元素。前三者是从HTML文档层次结构（DOM树）中获取元素，伪类和伪元素是预定义的、独立于文档的元素。它们获取元素的途径也不是基于id、class、属性这些基础的元素">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="思卓">思卓</a></h1>
+				<h2 class="blog-motto">It&#39;s only too late if you decide it is. Get busy living. or get busy dying!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/27/css_pseudo/" title="css 伪类和伪元素" itemprop="url">css 伪类和伪元素</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="bobird">bobird</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-06-27T01:39:55.036Z" itemprop="datePublished">2016-06-27</time>
+    Updated:<time datetime="2016-06-27T01:58:25.652Z" itemprop="dateModified">2016-06-27</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#伪类"><span class="toc-number">1.</span> <span class="toc-text">伪类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#selector-class-pseudo-class-property-value"><span class="toc-number"></span> <span class="toc-text">selector.class:pseudo-class{property:value}</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#锚伪类"><span class="toc-number">1.</span> <span class="toc-text">锚伪类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#伪元素"><span class="toc-number">2.</span> <span class="toc-text">伪元素</span></a></li></ol>
+		</div>
+		
+		<p>Css的元素选择器，除了根据id(#),class(.),属性([])选取元素外，还可以根据元素的特殊状态来选取元素，它们就是伪类和伪元素。前三者是从HTML文档层次结构（DOM树）中获取元素，伪类和伪元素是预定义的、独立于文档的元素。它们获取元素的途径也不是基于id、class、属性这些基础的元素特征，而是在处于特殊状态的元素（伪类），或者是元素中特别的内容（伪元素）。伪类和伪元素通过”:”（英文冒号）与其他选择器区分。</p>
+<h3 id="伪类"><a href="#伪类" class="headerlink" title="伪类"></a>伪类</h3><p>伪类的语法：<br><code>selector:pseudo-class {property:value}</code><br>Css类也可与伪类搭配使用。</p>
+<h2 id="selector-class-pseudo-class-property-value"><a href="#selector-class-pseudo-class-property-value" class="headerlink" title="selector.class:pseudo-class{property:value}"></a><code>selector.class:pseudo-class{property:value}</code></h2><h3 id="锚伪类"><a href="#锚伪类" class="headerlink" title="锚伪类"></a>锚伪类</h3><p>不同链接状态样式<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.link&#123;color:#FF0000&#125;    /* 未访问的链接 */</span><br><span class="line">a.visited&#123;color:#00FF00&#125; /* 已访问的链接 */</span><br><span class="line">a.hover&#123;color:#FF00FF&#125;   /* 鼠标移动到链接上 */</span><br><span class="line">a.active&#123;color:#0000FF&#125;  /* 选定的链接 */</span><br></pre></td></tr></table></figure></p>
+<p>提示：在 CSS 定义中，a:hover 必须被置于 a:link 和 a:visited 之后，才是有效的。<br>提示：在 CSS 定义中，a:active 必须被置于 a:hover 之后，才是有效的。<br>提示：伪类名称对大小写不敏感。</p>
+<p><code>:focus</code>应用于拥有键盘输入焦点的元素<br><code>:first-child</code>应用于元素在页面中第一次出现的时候<br><code>:lang</code>应用于元素带有指定lang的情况</p>
+<h3 id="伪元素"><a href="#伪元素" class="headerlink" title="伪元素"></a>伪元素</h3><p>与伪类针对特殊状态的元素不同的是，伪元素是对元素中的特定内容进行操作，它所操作的层次比伪类更深了一层，也因此它的动态性比伪类要低得多。实际上，设计伪元素的目的就是去选取诸如元素内容第一个字（母）、第一行，选取某些内容前面或后面这种普通的选择器无法完成的工作。它控制的内容实际上和元素是相同的，但是它本身只是基于元素的抽象，并不存在于文档中，所以叫伪元素。</p>
+<p><code>:first-letter</code><br>伪元素的样式将应用于元素文本的第一个字（母）。<br><code>:first-line</code><br>伪元素的样式将应用于元素文本的第一行。<br><code>:before</code><br>在元素内容的最前面添加新内容。<br><code>:after</code><br>在元素内容的最后面添加新内容。</p>
+<p><code>:before</code>和<code>:after</code>通常与CSS内容生成配合使用，笔者会在下一篇博文中用到。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2016/06/27/css_pseudo/" data-title="css 伪类和伪元素 | 思卓" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/06/28/chrome/" title="Chrome">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Chrome</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/27/oracle/"  title="Oracle 常用语句">
+ <strong>NEXT:</strong><br/> 
+ <span>Oracle 常用语句
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#伪类"><span class="toc-number">1.</span> <span class="toc-text">伪类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#selector-class-pseudo-class-property-value"><span class="toc-number"></span> <span class="toc-text">selector.class:pseudo-class{property:value}</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#锚伪类"><span class="toc-number">1.</span> <span class="toc-text">锚伪类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#伪元素"><span class="toc-number">2.</span> <span class="toc-text">伪元素</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 追求卓越，成功就会不经意的追上你！ <br/>
+			As you think, so shall you become.</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/hbobird" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
+		
+		<a href="http://yoursite.com" target="_blank" title="bobird">bobird</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"null"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>

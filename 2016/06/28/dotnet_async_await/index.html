@@ -1,0 +1,324 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Async Await | 思卓</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="bobird">
+    
+    <meta name="description" content="Async和Await应用例子同步执行的例子如下：void Display(string text)&amp;#123;    Console.Writeline(text);&amp;#125;void ShowUriContent(string uri)&amp;#123;    using(WebClient cli">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="思卓">思卓</a></h1>
+				<h2 class="blog-motto">It&#39;s only too late if you decide it is. Get busy living. or get busy dying!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/28/dotnet_async_await/" title="Async Await" itemprop="url">Async Await</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="bobird">bobird</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-06-28T02:20:41.155Z" itemprop="datePublished">2016-06-28</time>
+    Updated:<time datetime="2016-06-28T03:11:05.189Z" itemprop="dateModified">2016-06-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Async和Await应用例子"><span class="toc-number">1.</span> <span class="toc-text">Async和Await应用例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#async和await的前世今生"><span class="toc-number">3.</span> <span class="toc-text">async和await的前世今生</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建线程"><span class="toc-number">3.1.</span> <span class="toc-text">创建线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池"><span class="toc-number">3.2.</span> <span class="toc-text">线程池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数"><span class="toc-number">3.3.</span> <span class="toc-text">参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#返回值"><span class="toc-number">3.4.</span> <span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#共享数据"><span class="toc-number">3.5.</span> <span class="toc-text">共享数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程安全"><span class="toc-number">3.6.</span> <span class="toc-text">线程安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#锁"><span class="toc-number">3.7.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Semaphore-信号量"><span class="toc-number">3.8.</span> <span class="toc-text">Semaphore 信号量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#异常处理"><span class="toc-number">3.9.</span> <span class="toc-text">异常处理</span></a></li></ol></li></ol>
+		</div>
+		
+		<h3 id="Async和Await应用例子"><a href="#Async和Await应用例子" class="headerlink" title="Async和Await应用例子"></a>Async和Await应用例子</h3><p>同步执行的例子如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Display(string text)</span><br><span class="line">&#123;</span><br><span class="line">    Console.Writeline(text);</span><br><span class="line">&#125;</span><br><span class="line">void ShowUriContent(string uri)</span><br><span class="line">&#123;</span><br><span class="line">    using(WebClient client=new WebClient())&#123;</span><br><span class="line">        string text=client.DownloadString(uri);</span><br><span class="line">        Display(text);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面例子中，如果WebClient在下载数据时出现了问题，将导致UI线程的阻塞。改为异步执行如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Display(text)</span><br><span class="line">&#123;</span><br><span class="line">    Console.Writeline(text);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void ShowUriContent(string uri)</span><br><span class="line">&#123;</span><br><span class="line">    using(WebClient client=new WebClient())&#123;</span><br><span class="line">        client.DowaloadStringCompleted += new DownloadStringCompletedEventHandler(ShowContent);</span><br><span class="line">        client.DownloadStringAsync(uri);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">void ShowContent(object sender,DownloadStringCompletedEventArgs e)&#123;</span><br><span class="line">    Display(e.Result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>改为异步以后，UI不在阻塞了，但是代码写起来分为两段，不太好理解和阅读。我们引入async和await关键改写如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Display(String text)</span><br><span class="line">&#123;</span><br><span class="line">    Console.Writeline(text);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void async ShowUriContent(String uri)</span><br><span class="line">&#123;</span><br><span class="line">    using(WebClient client=new WebClient())&#123;</span><br><span class="line">        String text=await DownloadStringTaskAsync(uri);</span><br><span class="line">        Display(text);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>async和await是一种基于编译器的功能，它在实现原理上也和yield非常像，他们都是被编译器转化为了状态机。</p>
+<h3 id="async和await的前世今生"><a href="#async和await的前世今生" class="headerlink" title="async和await的前世今生"></a>async和await的前世今生</h3><p>Thread&gt;Task&gt;async&amp;await</p>
+<h4 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">static void Main()</span><br><span class="line">&#123;</span><br><span class="line">    new Thread(Go).Start();     //.NET 1.0</span><br><span class="line">    Task.Factory.StartNew(Go);  //.NET 4.0引入TPL</span><br><span class="line">    Task.Run(new Action(Go));   //.NET 4.5新增了一个Run方法</span><br><span class="line">&#125;</span><br><span class="line">public static void Go()</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;this is a thread&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>注意:创建Thread的实例之后，需要手动调用它的Start方法将其启动。但是对于Task来说，StartNew和Run的同时，即会创建新的线程，并且会立即启动它。</em></p>
+<h4 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h4><p>线程的创建比较消耗资源，.NET提供了线程池来创建和管理线程。Thread默认不使用线程池，如果需要使用线程池的话，可以使用ThreadPool类，Task默认使用了线程池。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">static void Main()</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;this is the main thread:Thread id &#123;0&#125;&quot;,Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">    ThreadPool.QueueUserWorkItem(Go);</span><br><span class="line">    Console.ReadLine();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void Go(object data)</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;this is another thread: Thread Id &#123;0&#125;&quot;,Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">static void Main()</span><br><span class="line">&#123;</span><br><span class="line">    new Thread(Go).Start(&quot;arg1&quot;);       //没有匿名委托之前，我们只能这样传入一个object参数</span><br><span class="line"></span><br><span class="line">    new Thread(delegate()&#123;              //有了匿名委托之后</span><br><span class="line">        GoGoGo(&quot;arg1&quot;,&quot;arg2&quot;,&quot;arg3&quot;);</span><br><span class="line">     &#125;);</span><br><span class="line"></span><br><span class="line">     new Thread(()=&gt;&#123;</span><br><span class="line">        GoGoGo(&quot;arg1&quot;,&quot;arg2&quot;,&quot;arg3&quot;);</span><br><span class="line">    &#125;).Start();</span><br><span class="line">&#125;</span><br><span class="line">public static void Go(object name)&#123;</span><br><span class="line">    // TODO</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">public static void GoGoGo(string arg1, string arg2, string arg3)&#123;</span><br><span class="line">    // TODO</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">static void Main() &#123;</span><br><span class="line">    // GetDayOfThisWeek 运行在另外一个线程中</span><br><span class="line">    var dayName = Task.Run&lt;string&gt;(() =&gt; &#123; return GetDayOfThisWeek(); &#125;);</span><br><span class="line">    Console.WriteLine(&quot;今天是：&#123;0&#125;&quot;,dayName.Result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="共享数据"><a href="#共享数据" class="headerlink" title="共享数据"></a>共享数据</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">private static bool _isDone = false;   </span><br><span class="line">static void Main()&#123;</span><br><span class="line">    new Thread(Done).Start();</span><br><span class="line">    new Thread(Done).Start();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">static void Done()&#123;</span><br><span class="line">    if (!_isDone) &#123;</span><br><span class="line">        _isDone = true; // 第二个线程来的时候，就不会再执行了(也不是绝对的，取决于计算机的CPU数量以及当时的运行情况)</span><br><span class="line">        Console.WriteLine(&quot;Done&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h4><p>我们先把上面的代码小小的调整一下，就知道什么是线程安全了。我们把Done方法中的两句话对换了一下位置 。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">private static bool _isDone = false;   </span><br><span class="line">static void Main()&#123;</span><br><span class="line">    new Thread(Done).Start();</span><br><span class="line">    new Thread(Done).Start();</span><br><span class="line">    Console.ReadLine();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">static void Done()&#123;</span><br><span class="line">    if (!_isDone) &#123;</span><br><span class="line">       Console.WriteLine(&quot;Done&quot;); // 猜猜这里面会被执行几次？</span><br><span class="line">        _isDone = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面这种情况不会一直发生，但是如果你运气好的话，就会中奖了。因为第一个线程还没有来得及把_isDone设置成true，第二个线程就进来了，而这不是我们想要的结果，在多个线程下，结果不是我们的预期结果，这就是线程不安全。</p>
+<h4 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h4><p>要解决上面遇到的问题，我们就要用到锁。锁的类型有独占锁，互斥锁，以及读写锁等，我们这里就简单演示一下独占锁。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">private static bool _isDone = false;</span><br><span class="line">private static object _lock = new object();</span><br><span class="line">static void Main()&#123;</span><br><span class="line">    new Thread(Done).Start();</span><br><span class="line">    new Thread(Done).Start();</span><br><span class="line">    Console.ReadLine();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">static void Done()&#123;</span><br><span class="line">    lock (_lock)&#123;</span><br><span class="line">        if (!_isDone)&#123;</span><br><span class="line">            Console.WriteLine(&quot;Done&quot;); // 猜猜这里面会被执行几次？</span><br><span class="line">            _isDone = true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再我们加上锁之后，被锁住的代码在同一个时间内只允许一个线程访问，其它的线程会被阻塞，只有等到这个锁被释放之后其它的线程才能执行被锁住的代码。</p>
+<h4 id="Semaphore-信号量"><a href="#Semaphore-信号量" class="headerlink" title="Semaphore 信号量"></a>Semaphore 信号量</h4><p>我实在不知道这个单词应该怎么翻译，从官方的解释来看，我们可以这样理解。它可以控制对某一段代码或者对某个资源访问的线程的数量，超过这个数量之后，其它的线程就得等待，只有等现在有线程释放了之后，下面的线程才能访问。这个跟锁有相似的功能，只不过不是独占的，它允许一定数量的线程同时访问。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">static SemaphoreSlim _sem = new SemaphoreSlim(3);    // 我们限制能同时访问的线程数量是3</span><br><span class="line">static void Main()&#123;</span><br><span class="line">    for (int i = 1; i &lt;= 5; i++) new Thread(Enter).Start(i);</span><br><span class="line">    Console.ReadLine();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">static void Enter(object id)&#123;</span><br><span class="line">    Console.WriteLine(id + &quot; 开始排队...&quot;);</span><br><span class="line">    _sem.Wait();</span><br><span class="line">    Console.WriteLine(id + &quot; 开始执行！&quot;);         </span><br><span class="line">    Thread.Sleep(1000 * (int)id);              </span><br><span class="line">    Console.WriteLine(id + &quot; 执行完毕，离开！&quot;);     </span><br><span class="line">    _sem.Release();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在最开始的时候，前3个排队之后就立即进入执行，但是4和5，只有等到有线程退出之后才可以执行。</p>
+<h4 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h4><p>其它线程的异常，主线程可以捕获到么？<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void Main()&#123;</span><br><span class="line">    try&#123;</span><br><span class="line">        new Thread(Go).Start();</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception ex)&#123;</span><br><span class="line">        // 其它线程里面的异常，我们这里面是捕获不到的。</span><br><span class="line">        Console.WriteLine(&quot;Exception!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">static void Go() &#123; throw null; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么升级了的Task呢？<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void Main()&#123;</span><br><span class="line">    try&#123;</span><br><span class="line">        var task = Task.Run(() =&gt; &#123; Go(); &#125;);</span><br><span class="line">        task.Wait();  // 在调用了这句话之后，主线程才能捕获task里面的异常</span><br><span class="line"> </span><br><span class="line">        // 对于有返回值的Task, 我们接收了它的返回值就不需要再调用Wait方法了</span><br><span class="line">        // GetName 里面的异常我们也可以捕获到</span><br><span class="line">        var task2 = Task.Run(() =&gt; &#123; return GetName(); &#125;);</span><br><span class="line">        var name = task2.Result;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception ex)&#123;</span><br><span class="line">        Console.WriteLine(&quot;Exception!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">static void Go() &#123; throw null; &#125;</span><br><span class="line">static string GetName() &#123; throw null; &#125;</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2016/06/28/dotnet_async_await/" data-title="Async Await | 思卓" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/07/03/wsgi/" title="WSGI">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  WSGI</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/28/js_promise/"  title="javascript promise">
+ <strong>NEXT:</strong><br/> 
+ <span>javascript promise
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Async和Await应用例子"><span class="toc-number">1.</span> <span class="toc-text">Async和Await应用例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#async和await的前世今生"><span class="toc-number">3.</span> <span class="toc-text">async和await的前世今生</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建线程"><span class="toc-number">3.1.</span> <span class="toc-text">创建线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池"><span class="toc-number">3.2.</span> <span class="toc-text">线程池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数"><span class="toc-number">3.3.</span> <span class="toc-text">参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#返回值"><span class="toc-number">3.4.</span> <span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#共享数据"><span class="toc-number">3.5.</span> <span class="toc-text">共享数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程安全"><span class="toc-number">3.6.</span> <span class="toc-text">线程安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#锁"><span class="toc-number">3.7.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Semaphore-信号量"><span class="toc-number">3.8.</span> <span class="toc-text">Semaphore 信号量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#异常处理"><span class="toc-number">3.9.</span> <span class="toc-text">异常处理</span></a></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 追求卓越，成功就会不经意的追上你！ <br/>
+			As you think, so shall you become.</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/hbobird" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
+		
+		<a href="http://yoursite.com" target="_blank" title="bobird">bobird</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"null"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>

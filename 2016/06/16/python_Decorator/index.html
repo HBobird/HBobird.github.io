@@ -1,0 +1,318 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>python 装饰器 | 思卓</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="bobird">
+    
+    <meta name="description" content="python 装饰器装饰器是一个很著名的设计模式，经常被用于有切面需求的场景，较为经典的有插入日志、性能测试、事务处理等。装饰器是解决这类问题的绝佳设计，有了装饰器，我们就可以抽离出大量函数中与函数功能本身无关的雷同代码并继续重用。概括的讲，装饰器的作用就是为已经存在的对象添加额外的功能。
+impo">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="思卓">思卓</a></h1>
+				<h2 class="blog-motto">It&#39;s only too late if you decide it is. Get busy living. or get busy dying!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/16/python_Decorator/" title="python 装饰器" itemprop="url">python 装饰器</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="bobird">bobird</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-06-16T07:44:24.118Z" itemprop="datePublished">2016-06-16</time>
+    Updated:<time datetime="2016-06-18T08:38:58.847Z" itemprop="dateModified">2016-06-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#python-装饰器"><span class="toc-number">1.</span> <span class="toc-text">python 装饰器</span></a></li></ol>
+		</div>
+		
+		<h3 id="python-装饰器"><a href="#python-装饰器" class="headerlink" title="python 装饰器"></a>python 装饰器</h3><p>装饰器是一个很著名的设计模式，经常被用于有切面需求的场景，较为经典的有插入日志、性能测试、事务处理等。装饰器是解决这类问题的绝佳设计，有了装饰器，我们就可以抽离出大量函数中与函数功能本身无关的雷同代码并继续重用。概括的讲，装饰器的作用就是为已经存在的对象添加额外的功能。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time  </span><br><span class="line">   </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timeit</span><span class="params">(func)</span>:</span>  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">()</span>:</span>  </span><br><span class="line">        start = time.clock()  </span><br><span class="line">        func()  </span><br><span class="line">        end =time.clock()  </span><br><span class="line">        <span class="keyword">print</span> <span class="string">'used:'</span>, end - start  </span><br><span class="line">    <span class="keyword">return</span> wrapper  </span><br><span class="line">   </span><br><span class="line"><span class="meta">@timeit  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span>  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">'in foo()'</span>  </span><br><span class="line">   </span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+<p>1.最简单的函数<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'in foo()'</span></span><br></pre></td></tr></table></figure></p>
+<p>2.给函数加上装饰<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    start=time.clock()</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'in foo()'</span></span><br><span class="line">    end=time.clock()</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'used:'</span>,end-start</span><br></pre></td></tr></table></figure></p>
+<p>3.使用语法糖@<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timeit</span><span class="params">(func)</span>:</span></span><br><span class="line">    start=time.clock()</span><br><span class="line">    func()</span><br><span class="line">    end=time.clock()</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'used:'</span>,end-start</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'in foo()'</span></span><br></pre></td></tr></table></figure></p>
+<p>4.使用内嵌包装函数来确保每次新函数都被调用<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timeit</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">()</span>:</span></span><br><span class="line">        start=time.clock()</span><br><span class="line">        func()</span><br><span class="line">        end=time.clock()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'used:'</span>,end-start</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'in foo()'</span></span><br></pre></td></tr></table></figure></p>
+<p>5.对带参数的函数进行装饰<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timeit</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(a,b)</span>:</span></span><br><span class="line">        start=time.clock()</span><br><span class="line">        ret=func(a,b)</span><br><span class="line">        end=time.clock()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'used:'</span>,end-start</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a,b)</span>:</span></span><br><span class="line">    print(<span class="string">'in foo(%s,%s) called.'</span>%(a,b))</span><br></pre></td></tr></table></figure></p>
+<p>6.对参数数量不定的函数进行装饰<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timeit</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*arg,**kwargs)</span>:</span></span><br><span class="line">        start=time.clock()</span><br><span class="line">        ret=func(*args,**kwargs)</span><br><span class="line">        end=time.clock()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'used:'</span>,end-start</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a,b)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'in foo(%s,%s) called.'</span>%(a,b))</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a,b,c)</span>:</span></span><br><span class="line">    print(<span class="string">'in foo(%s,%s) called.'</span>%(a,bc))</span><br></pre></td></tr></table></figure></p>
+<p>7.让装饰器带参数<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">在实例<span class="number">4</span>的基础上，让装饰器带参数，和上一示例相比，在外层多了一层包装。装饰函数名实际上应更有意义些。</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">deco</span><span class="params">(arg)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_deco</span><span class="params">(func)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__deco</span><span class="params">()</span>:</span></span><br><span class="line">            print(<span class="string">"before %s called [%s]."</span> % (func.__name__, arg))</span><br><span class="line">            func()</span><br><span class="line">            print(<span class="string">"  after %s called [%s]."</span> % (func.__name__, arg))</span><br><span class="line">        <span class="keyword">return</span> __deco</span><br><span class="line">    <span class="keyword">return</span> _deco</span><br><span class="line"> </span><br><span class="line"><span class="meta">@deco("mymodule")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">myfunc</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">" myfunc() called."</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@deco("module2")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">myfunc2</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">" myfunc2() called."</span>)</span><br><span class="line"> </span><br><span class="line">myfunc()</span><br><span class="line">myfunc2()</span><br></pre></td></tr></table></figure></p>
+<p>8.让装饰器带类参数<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">locker</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"locker.__init__() should be not called."</span>)</span><br><span class="line">         </span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">acquire</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"locker.acquire() called.（这是静态方法）"</span>)</span><br><span class="line">         </span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">release</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"  locker.release() called.（不需要对象实例）"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">deco</span><span class="params">(cls)</span>:</span></span><br><span class="line">    <span class="string">'''cls 必须实现acquire和release静态方法'''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_deco</span><span class="params">(func)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__deco</span><span class="params">()</span>:</span></span><br><span class="line">            print(<span class="string">"before %s called [%s]."</span> % (func.__name__, cls))</span><br><span class="line">            cls.acquire()</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="keyword">return</span> func()</span><br><span class="line">            <span class="keyword">finally</span>:</span><br><span class="line">                cls.release()</span><br><span class="line">        <span class="keyword">return</span> __deco</span><br><span class="line">    <span class="keyword">return</span> _deco</span><br><span class="line"> </span><br><span class="line"><span class="meta">@deco(locker)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">myfunc</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">" myfunc() called."</span>)</span><br><span class="line"> </span><br><span class="line">myfunc()</span><br><span class="line">myfunc()</span><br></pre></td></tr></table></figure></p>
+<p>9.装饰器带类参数，并分拆公共类到其他py文件中，同时演示了对一个函数应用多个装饰器<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">mylocker</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"mylocker.__init__() called."</span>)</span><br><span class="line">         </span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">acquire</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"mylocker.acquire() called."</span>)</span><br><span class="line">         </span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">unlock</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"  mylocker.unlock() called."</span>)</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">lockerex</span><span class="params">(mylocker)</span>:</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">acquire</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"lockerex.acquire() called."</span>)</span><br><span class="line">         </span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">unlock</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"  lockerex.unlock() called."</span>)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lockhelper</span><span class="params">(cls)</span>:</span></span><br><span class="line">    <span class="string">'''cls 必须实现acquire和release静态方法'''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_deco</span><span class="params">(func)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__deco</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">            print(<span class="string">"before %s called."</span> % func.__name__)</span><br><span class="line">            cls.acquire()</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">            <span class="keyword">finally</span>:</span><br><span class="line">                cls.unlock()</span><br><span class="line">        <span class="keyword">return</span> __deco</span><br><span class="line">    <span class="keyword">return</span> _deco</span><br></pre></td></tr></table></figure></p>
+<p>示例9: 装饰器带类参数，并分拆公共类到其他py文件中同时演示了对一个函数应用多个装饰器<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding:gbk -*-</span></span><br><span class="line"><span class="keyword">from</span> mylocker <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">example</span>:</span></span><br><span class="line"><span class="meta">    @lockhelper(mylocker)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myfunc</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">" myfunc() called."</span>)</span><br><span class="line"> </span><br><span class="line"><span class="meta">    @lockhelper(mylocker)</span></span><br><span class="line"><span class="meta">    @lockhelper(lockerex)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myfunc2</span><span class="params">(self, a, b)</span>:</span></span><br><span class="line">        print(<span class="string">" myfunc2() called."</span>)</span><br><span class="line">        <span class="keyword">return</span> a + b</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    a = example()</span><br><span class="line">    a.myfunc()</span><br><span class="line">    print(a.myfunc())</span><br><span class="line">    print(a.myfunc2(<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">    print(a.myfunc2(<span class="number">3</span>, <span class="number">4</span>))</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2016/06/16/python_Decorator/" data-title="python 装饰器 | 思卓" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/06/17/css_em/" title="css em">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  css em</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/16/python_requirements/"  title="python requirements">
+ <strong>NEXT:</strong><br/> 
+ <span>python requirements
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#python-装饰器"><span class="toc-number">1.</span> <span class="toc-text">python 装饰器</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 追求卓越，成功就会不经意的追上你！ <br/>
+			As you think, so shall you become.</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/hbobird" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
+		
+		<a href="http://yoursite.com" target="_blank" title="bobird">bobird</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"null"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,343 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Oracle 常用语句 | 思卓</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="bobird">
+    
+    <meta name="description" content="Select查询默认表空间select username,default_tablespace from user_users;
+查看当前用户的系统权限和表级权限select * from user_role_privs;select * from user_tab_privs;
+显示当前会话所具有">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="思卓">思卓</a></h1>
+				<h2 class="blog-motto">It&#39;s only too late if you decide it is. Get busy living. or get busy dying!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/27/oracle/" title="Oracle 常用语句" itemprop="url">Oracle 常用语句</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="bobird">bobird</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-06-27T00:07:13.641Z" itemprop="datePublished">2016-06-27</time>
+    Updated:<time datetime="2016-06-27T01:36:48.478Z" itemprop="dateModified">2016-06-27</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Select"><span class="toc-number">1.</span> <span class="toc-text">Select</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create"><span class="toc-number">2.</span> <span class="toc-text">Create</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表空间"><span class="toc-number">3.</span> <span class="toc-text">表空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库导入导出"><span class="toc-number">4.</span> <span class="toc-text">数据库导入导出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#导出导出数据"><span class="toc-number">4.1.</span> <span class="toc-text">导出导出数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导入数据"><span class="toc-number">4.2.</span> <span class="toc-text">导入数据</span></a></li></ol></li></ol>
+		</div>
+		
+		<h3 id="Select"><a href="#Select" class="headerlink" title="Select"></a>Select</h3><p>查询默认表空间<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select username,default_tablespace from user_users;</span><br></pre></td></tr></table></figure></p>
+<p>查看当前用户的系统权限和表级权限<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from user_role_privs;</span><br><span class="line">select * from user_tab_privs;</span><br></pre></td></tr></table></figure></p>
+<p>显示当前会话所具有的权限<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from session_privs;</span><br></pre></td></tr></table></figure></p>
+<p>查看某表的创建时间<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select object_name,created from user_objects where object_name=upper(&apos;tablename&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>查看某表的大小<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select sum(bytes)/(1024*1024) as &quot;size(M)&quot; from user_segements where segment_name=upper(&apos;tablename&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>查看序列号，last_number 是当前值<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from user_sequences;</span><br></pre></td></tr></table></figure></p>
+<p>查看视图的名称<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select view_name from user_views;</span><br></pre></td></tr></table></figure></p>
+<p>查看所有表空间大小(其他信息等)<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select tablespace_name,sum(bytes)/(1024*1024) as &quot;size(M)&quot; from dba_data_files group by tablespace_name;</span><br></pre></td></tr></table></figure></p>
+<p>查看空闲表空间大小<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select tablespace_name,sum(bytes)/(1024*1024) as &quot;size(M)&quot; from dba_free_space group by tablespace_name;</span><br></pre></td></tr></table></figure></p>
+<p>查看所有segement的大小<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select segment_name,sum(bytes)/(1024*1024) as &quot;size(m)&quot; from user_extents group by segment_name;</span><br></pre></td></tr></table></figure></p>
+<p>查看控制文件<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from v$controlfile;</span><br></pre></td></tr></table></figure></p>
+<p>查看日志文件<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from v$logfile;</span><br></pre></td></tr></table></figure></p>
+<p>查看数据库信息(创建时间，归档模式等)<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from v$database;</span><br></pre></td></tr></table></figure></p>
+<p>查看数据库版本<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select version from product_component_version where substr(product,1,6)=&apos;Oracle&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>查看oracle连接数<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select count(*) from v$session where status=&apos;ACTIVE&apos;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h3><p>用户<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create user username identified by password;</span><br><span class="line">alter user username identified by password;</span><br><span class="line">drop user username cascade;</span><br><span class="line">grant connect,resouce,dba to username;</span><br><span class="line">revoke connect,resouce from username;</span><br></pre></td></tr></table></figure></p>
+<p>角色<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create role rolename;</span><br><span class="line">grant select on class to rolename;</span><br><span class="line">grant create table to rolename;</span><br><span class="line">grant create tablespace to rolename;</span><br><span class="line">grant create view to rolename;</span><br><span class="line">grant create session to rolename;</span><br><span class="line">drop role rolename;</span><br></pre></td></tr></table></figure></p>
+<h3 id="表空间"><a href="#表空间" class="headerlink" title="表空间"></a>表空间</h3><p>创建临时表空间<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create  temporary tablespace temp </span><br><span class="line">tempfile &apos;D:\app\administrator\data\temp.dbf&apos;</span><br><span class="line">size 50m </span><br><span class="line">autoextend on </span><br><span class="line">next 50m </span><br><span class="line">maxsize 20480m </span><br><span class="line">extent management local;</span><br></pre></td></tr></table></figure></p>
+<p>创建表空间<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create tablespace xxx </span><br><span class="line">logging</span><br><span class="line">datafile &apos;D:\app\administrator\data\repo.dbf&apos;</span><br><span class="line">size 50m </span><br><span class="line">autoextend on </span><br><span class="line">next 50m </span><br><span class="line">maxsize 20480m </span><br><span class="line">extent management local;</span><br></pre></td></tr></table></figure></p>
+<p>增加数据文件<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter tablespace xxx add datafile &apos;/oracle/oradata/db/xxx.dbf&apos; size 500m;</span><br></pre></td></tr></table></figure></p>
+<p>删除表空间<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">drop tablespace xxx including contents and datafiles;</span><br></pre></td></tr></table></figure></p>
+<p>显示数据库参数的语句为<code>show parameter</code>,此时显示的是全部的参数，如果需要过滤，可在后面加上过来的条件，如:<code>show paramter db_</code>,会显示以db_开头的参数信息。’show parameter audit`用了显示审计信息等。该语句需要在command mode下执行。</p>
+<p>输出查询结果<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spool out.txt</span><br><span class="line">select * from v$database;</span><br><span class="line">spool off</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据库导入导出"><a href="#数据库导入导出" class="headerlink" title="数据库导入导出"></a>数据库导入导出</h3><h4 id="导出导出数据"><a href="#导出导出数据" class="headerlink" title="导出导出数据"></a>导出导出数据</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create directory dpdata1 as &apos;d:\dump&apos;;</span><br><span class="line">select * from dba_directories;</span><br><span class="line">grant read,write on directory dpdata1 to scott;</span><br></pre></td></tr></table></figure>
+<p>按用户导:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">expdp scott/tiger@orcl schemas=scott dumpfile=expdp.dmp directory=dpdata1;</span><br></pre></td></tr></table></figure></p>
+<p>并行进程导:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">expdp scott/tiger@orcl direcotry=dpdata1 dumpfile=scott3.dmp parallel=40 job_name=scott3;</span><br></pre></td></tr></table></figure></p>
+<p>按表名导：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">expdp scott/tiger@orcl tables=emp,dept dumpfile=expdp.dmp directory=dpdata1;</span><br></pre></td></tr></table></figure></p>
+<p>按查询条件导:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">expdp scott/tiger@orcl directory=dpdata1 dumpfile=expdp.dmp tables=emp query=&apos;Where deptno=20&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>按表空间导：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">expdp system/manager directory=dpdata1 dumpfile=tablespace.dmp tablespaces=temp,example;</span><br></pre></td></tr></table></figure></p>
+<p>导出整个数据库<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">expdp system/manager directory=dpdata1 dumpfile=full.dmp full=y;</span><br></pre></td></tr></table></figure></p>
+<h4 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h4><p>导到指定用户下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">impdp scott/tiger@orcl directory=dpdata1 dumpfile=expdp.dmp schemas=scott;</span><br></pre></td></tr></table></figure></p>
+<p>改变表的owner<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">impdp system/manager directory=dpdata1 dumpfile=expdp.dmp tables=scott.dept remap_schema=scott;system;</span><br></pre></td></tr></table></figure></p>
+<p>导入表空间<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">immdp system/manager directory=dpdata1 dumpfile=tablespace.dmp tablespaces=example;</span><br></pre></td></tr></table></figure></p>
+<p>导入数据库<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">impdp system/manager directory=dump_dir dumpfile=full.dmp full=y;</span><br></pre></td></tr></table></figure></p>
+<p>追加数据<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">impdp system/manager directory=dpdata1 dumpfile=expdp.dmp schemas=system table_exists_action</span><br></pre></td></tr></table></figure></p>
+<p>Oracle如何导出空表<br>oracle 11g 有个新特性,当表中无数据时,不分配segment,以节省空间。<br>通过给表insert一行，然后rollback,就会产生segment,此时可以导出空表。或修改deferred_segment_creation参数，默认值为True，改为false。<code>alter system set deferred_segment_creation=false scope=both;</code><br>查找空表<br>select ‘alter table || table_name||’allocate extent;’ from user_tables where num_rows=0;</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2016/06/27/oracle/" data-title="Oracle 常用语句 | 思卓" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/06/27/css_pseudo/" title="css 伪类和伪元素">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  css 伪类和伪元素</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/26/grain/"  title="grain">
+ <strong>NEXT:</strong><br/> 
+ <span>grain
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Select"><span class="toc-number">1.</span> <span class="toc-text">Select</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create"><span class="toc-number">2.</span> <span class="toc-text">Create</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表空间"><span class="toc-number">3.</span> <span class="toc-text">表空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库导入导出"><span class="toc-number">4.</span> <span class="toc-text">数据库导入导出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#导出导出数据"><span class="toc-number">4.1.</span> <span class="toc-text">导出导出数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导入数据"><span class="toc-number">4.2.</span> <span class="toc-text">导入数据</span></a></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 追求卓越，成功就会不经意的追上你！ <br/>
+			As you think, so shall you become.</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/hbobird" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
+		
+		<a href="http://yoursite.com" target="_blank" title="bobird">bobird</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"null"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>
